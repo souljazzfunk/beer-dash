@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Beer Encyclopedia 2025 - World Beer Culture Guide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(180deg, #faf8f3 0%, #fff 100%);
+            color: #2c1810;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #d4a574 0%, #8b5a3c 100%);
+            color: white;
+            padding: 80px 60px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 60px;
+            z-index: 10;
+        }
+
+        .language-switcher a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            margin-left: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .language-switcher a:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .language-switcher a.current {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.6);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 60%;
+            height: 200%;
+            background: rgba(255,255,255,0.05);
+            transform: rotate(-15deg);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(180deg, transparent 0%, #faf8f3 100%);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header-subtitle {
+            font-size: 0.9em;
+            opacity: 0.9;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .header h1 {
+            font-size: 4.5em;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        
+        .header-description {
+            font-size: 1.2em;
+            margin-top: 20px;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+        
+        .market-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .market-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .market-stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+        
+        .market-stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* Content Container */
+        .container {
+            max-width: 1400px;
+            margin: -40px auto 0;
+            padding: 0 40px 60px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Card Style */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(139,90,60,0.08);
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(139,90,60,0.12);
+        }
+        
+        /* Section Title */
+        .section-title {
+            font-size: 2em;
+            color: #8b5a3c;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+        }
+        
+        
+        /* Global Statistics */
+        .global-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #faf8f3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #d4a574;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(139,90,60,0.1);
+        }
+        
+        .stat-card h4 {
+            color: #8b5a3c;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+        
+        .stat-card .value {
+            font-size: 2.2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4a574 0%, #8b5a3c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-card .sub-value {
+            font-size: 0.9em;
+            color: #7cb342;
+            margin-top: 5px;
+        }
+        
+        /* Continental Tabs */
+        .continent-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .continent-tab {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #f4e4d4;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .continent-tab:hover {
+            background: #faf8f3;
+            transform: translateY(-2px);
+        }
+        
+        .continent-tab.active {
+            background: linear-gradient(135deg, #d4a574 0%, #8b5a3c 100%);
+            color: white;
+            border-color: #d4a574;
+        }
+        
+        /* Continental Content */
+        .continent-content {
+            display: none;
+        }
+        
+        .continent-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .continent-overview {
+            background: linear-gradient(135deg, #faf8f3 0%, #f4e4d4 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .continent-overview h3 {
+            color: #8b5a3c;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .continent-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .continent-stat {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .continent-stat-label {
+            font-size: 0.85em;
+            color: #8b5a3c;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .continent-stat-value {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #2c1810;
+            margin-top: 5px;
+        }
+        
+        /* Beer Style Cards */
+        .beer-styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .style-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .style-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(139,90,60,0.15);
+        }
+        
+        .style-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .style-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+        
+        .style-icon.golden {
+            background: linear-gradient(135deg, #f9e5a8 0%, #e6c878 100%);
+        }
+        
+        .style-icon.amber {
+            background: linear-gradient(135deg, #e8a973 0%, #d4804a 100%);
+        }
+        
+        .style-icon.dark {
+            background: linear-gradient(135deg, #6b4b3a 0%, #3d2817 100%);
+        }
+        
+        .style-icon.wheat {
+            background: linear-gradient(135deg, #f4e4d4 0%, #e8d4b8 100%);
+        }
+        
+        .style-name h4 {
+            font-size: 1.2em;
+            color: #2c1810;
+            margin-bottom: 2px;
+        }
+        
+        .style-name .origin {
+            font-size: 0.8em;
+            color: #8b5a3c;
+        }
+        
+        .style-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #f4e4d4;
+        }
+        
+        .detail-item {
+            text-align: center;
+        }
+        
+        .detail-label {
+            font-size: 0.75em;
+            color: #8b5a3c;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .detail-value {
+            font-size: 1em;
+            color: #2c1810;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        
+        /* Chart Container */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 968px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 320px;
+        }
+        
+        .chart-title {
+            font-size: 1.3em;
+            color: #8b5a3c;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        /* Trends Section */
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .trend-card {
+            background: linear-gradient(135deg, #fff 0%, #faf8f3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-top: 3px solid #d4a574;
+        }
+        
+        .trend-card h4 {
+            color: #8b5a3c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .trend-card p {
+            color: #5c453a;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #8b5a3c 0%, #5c453a 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: 60px;
+        }
+        
+        .footer p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="language-switcher">
+            <a href="beer-dash_en.html" class="current">English</a>
+            <a href="beer-dash.html">日本語</a>
+        </div>
+        <div class="header-content">
+            <div class="header-subtitle">Global Beer Encyclopedia 2025</div>
+            <h1>World Beer Culture Guide</h1>
+            <p class="header-description">
+                A brewing culture with 7,000 years of history that has evolved uniquely across all 6 continents, 
+                where traditional techniques merge with innovative craft beer in an $839-865 billion global industry. A cultural heritage that continues to serve as the core of human society, from ancient Chinese fermentation techniques to modern precision brewing.
+            </p>
+            <div class="market-stats">
+                <div class="market-stat">
+                    <div class="market-stat-value">$839B</div>
+                    <div class="market-stat-label">Global Market Size</div>
+                </div>
+                <div class="market-stat">
+                    <div class="market-stat-value">1.875B hL</div>
+                    <div class="market-stat-label">Annual Production</div>
+                </div>
+                <div class="market-stat">
+                    <div class="market-stat-value">$1.25T</div>
+                    <div class="market-stat-label">2030 Forecast</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Global Statistics -->
+        <div class="card animated">
+            <h2 class="section-title">🌍 Global Beer Market Statistics 2024-2025</h2>
+            <div class="global-stats-grid">
+                <div class="stat-card">
+                    <h4>Top Producer</h4>
+                    <div class="value">China</div>
+                    <div class="sub-value">3.6B hL/year • 20+ consecutive years</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Top Consumer (per capita)</h4>
+                    <div class="value">Czech Republic</div>
+                    <div class="sub-value">152.1L/year • 31 consecutive years</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Largest Exporter</h4>
+                    <div class="value">Mexico</div>
+                    <div class="sub-value">30% of world exports • 4th producer</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Fastest Growing Region</h4>
+                    <div class="value">Africa</div>
+                    <div class="sub-value">+6.7% annual growth rate</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Craft Beer Market</h4>
+                    <div class="value">$107.28B</div>
+                    <div class="sub-value">2033 forecast: $242.79B</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Sustainability Innovation</h4>
+                    <div class="value">-22%</div>
+                    <div class="sub-value">Emissions reduction (2017-22) • Water -8%</div>
+                </div>
+                <div class="stat-card">
+                    <h4>US Craft Breweries</h4>
+                    <div class="value">9,796</div>
+                    <div class="sub-value">$28.8B market • 23.1M barrels</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Non-Alcoholic Market</h4>
+                    <div class="value">$40B</div>
+                    <div class="sub-value">2033 forecast • +29.2% growth</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Trends Charts -->
+        <div class="card animated" style="animation-delay: 0.1s">
+            <h2 class="section-title">📊 Global Market Trends</h2>
+            <div class="charts-grid">
+                <div>
+                    <h3 class="chart-title">Continental Production Share (2024)</h3>
+                    <div class="chart-container">
+                        <canvas id="continentChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="chart-title">Major Producer Trends (Billion Liters)</h3>
+                    <div class="chart-container">
+                        <canvas id="productionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Continental Beer Culture -->
+        <div class="card animated" style="animation-delay: 0.2s">
+            <h2 class="section-title">🗺️ Continental Beer Culture Encyclopedia</h2>
+            
+            <div class="continent-tabs">
+                <div class="continent-tab active" data-continent="asia">🌏 Asia-Pacific</div>
+                <div class="continent-tab" data-continent="europe">🏰 Europe</div>
+                <div class="continent-tab" data-continent="north-america">🗽 North America</div>
+                <div class="continent-tab" data-continent="south-america">🌎 South America</div>
+                <div class="continent-tab" data-continent="africa">🌍 Africa</div>
+                <div class="continent-tab" data-continent="oceania">🏝️ Oceania</div>
+            </div>
+            
+            <!-- Asia-Pacific -->
+            <div class="continent-content active" id="asia">
+                <div class="continent-overview">
+                    <h3>Asia-Pacific Region</h3>
+                    <p>The largest consumer region, accounting for 35.5% of the global market. Archaeological evidence from China demonstrates 7,000-year-old fermentation technology, with unique amylolytic fermentation "qū" technology predating European malting techniques by millennia. Japan's "Big Four" companies (Asahi 37%, Kirin 34%, Suntory 16%, Sapporo 11%) and 528 craft breweries, Korea's explosive growth to 200+ breweries since 2014, and India's projected $20.2 billion market by 2032 (CAGR 9.90%) represent the fusion of ancient wisdom and modern innovation.</p>
+                    <div class="continent-stats">
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Market Share</div>
+                            <div class="continent-stat-value">35.5%</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">China Production</div>
+                            <div class="continent-stat-value">3.6B hL</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Korea Brewery Growth</div>
+                            <div class="continent-stat-value">8→200+</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">India Growth Forecast</div>
+                            <div class="continent-stat-value">+9.9% CAGR</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="beer-styles-grid">
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon golden">🌾</div>
+                            <div class="style-name">
+                                <h4>Asahi Super Dry</h4>
+                                <span class="origin">Japan • 1987 Innovation</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">5.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Technology</div>
+                                <div class="detail-value">High Attenuation</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Impact</div>
+                                <div class="detail-value">Global Standard</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">⚙️</div>
+                            <div class="style-name">
+                                <h4>Chinese Qū Fermentation</h4>
+                                <span class="origin">China • 7,000-Year Tradition</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Technology</div>
+                                <div class="detail-value">Mixed Culture</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Amylolysis</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">History</div>
+                                <div class="detail-value">Oldest Tech</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon wheat">🌶️</div>
+                            <div class="style-name">
+                                <h4>Korean Craft Revolution</h4>
+                                <span class="origin">South Korea • Since 2014</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Growth</div>
+                                <div class="detail-value">8→200+</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Kimchi Yeast</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Ingredient</div>
+                                <div class="detail-value">Gochujang</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon golden">🏮</div>
+                            <div class="style-name">
+                                <h4>Southeast Asian Diversity</h4>
+                                <span class="origin">Thailand • Vietnam • Indonesia</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Chang</div>
+                                <div class="detail-value">Thailand 60%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Bia Hơi</div>
+                                <div class="detail-value">Vietnam</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Bintang</div>
+                                <div class="detail-value">Indonesia</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">🇮🇳</div>
+                            <div class="style-name">
+                                <h4>Indian Market Explosion</h4>
+                                <span class="origin">India • Rapid Growth Market</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Kingfisher</div>
+                                <div class="detail-value">47.3%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Forecast</div>
+                                <div class="detail-value">$20.2B</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">CAGR</div>
+                                <div class="detail-value">+9.90%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Europe -->
+            <div class="continent-content" id="europe">
+                <div class="continent-overview">
+                    <h3>Europe</h3>
+                    <p>The heartland of beer culture. Producing 51.42 billion liters, with a commitment to quality that began with the German Beer Purity Law of 1516. Czech Pilsner, Belgian monastery beers, Finnish Sahti and other diverse traditions thrive here.</p>
+                    <div class="continent-stats">
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Production</div>
+                            <div class="continent-stat-value">51.42B L</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Breweries</div>
+                            <div class="continent-stat-value">11,000+</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Oldest Brewery</div>
+                            <div class="continent-stat-value">1040 AD</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Growth Rate</div>
+                            <div class="continent-stat-value">+1.1%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="beer-styles-grid">
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon golden">🍺</div>
+                            <div class="style-name">
+                                <h4>Czech Pilsner</h4>
+                                <span class="origin">Czech Republic • Pilzen</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">4.5-5.5%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">IBU</div>
+                                <div class="detail-value">30-45</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Founded</div>
+                                <div class="detail-value">1842</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">⛪</div>
+                            <div class="style-name">
+                                <h4>Belgian Trappist</h4>
+                                <span class="origin">Belgium • Monastery</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">6.0-12%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Types</div>
+                                <div class="detail-value">11 Monasteries</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Bottle Fermented</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon wheat">🌲</div>
+                            <div class="style-name">
+                                <h4>Finnish Sahti</h4>
+                                <span class="origin">Finland • Traditional</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">7.0-9.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Juniper</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">UNESCO</div>
+                                <div class="detail-value">Heritage</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- North America -->
+            <div class="continent-content" id="north-america">
+                <div class="continent-overview">
+                    <h3>North America</h3>
+                    <p>A region where the world's most diverse craft brewing ecosystem coexists with deep indigenous traditions. The US leads with 9,796 breweries producing 23.1 million barrels ($28.8 billion), experiencing its first brewery decline since 2005 while leading the world with IPAs (over 40% of craft production). Mexico reigns as the world's largest beer exporter (30% of global exports, Corona and Modelo brands), using traditional corn techniques to create distinctive lightness. Canada maintains an 11.3 billion CAD market with about 1,000 licensed breweries, increasingly using local ingredients like maple and regional grains. Indigenous Tiswin and Tesgüino traditions (1,800-year brewing heritage) continue to the present.</p>
+                    <div class="continent-stats">
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">US Craft Market</div>
+                            <div class="continent-stat-value">$28.8B</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">US Breweries</div>
+                            <div class="continent-stat-value">9,796</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Mexico Export Share</div>
+                            <div class="continent-stat-value">30%</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Indigenous Heritage</div>
+                            <div class="continent-stat-value">1,800 years</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="beer-styles-grid">
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">🌿</div>
+                            <div class="style-name">
+                                <h4>American IPA</h4>
+                                <span class="origin">USA • Hop Bomb</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">5.5-7.5%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">IBU</div>
+                                <div class="detail-value">40-70</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Share</div>
+                                <div class="detail-value">40%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon golden">🌮</div>
+                            <div class="style-name">
+                                <h4>Mexican Lager</h4>
+                                <span class="origin">Mexico • Corn Usage</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">4.0-5.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Lime Served</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Representative</div>
+                                <div class="detail-value">Corona</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon wheat">🍁</div>
+                            <div class="style-name">
+                                <h4>Canadian Maple Beer</h4>
+                                <span class="origin">Canada • Maple</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">5.0-7.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Maple Flavor</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Season</div>
+                                <div class="detail-value">Fall/Winter</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon dark">🏺</div>
+                            <div class="style-name">
+                                <h4>Native American Tiswin</h4>
+                                <span class="origin">Indigenous • 1,800-Year Heritage</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Ingredient</div>
+                                <div class="detail-value">Corn</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Tradition</div>
+                                <div class="detail-value">Apache</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Continuity</div>
+                                <div class="detail-value">To Present</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">🚫</div>
+                            <div class="style-name">
+                                <h4>Non-Alcoholic Revolution</h4>
+                                <span class="origin">USA • Athletic Brewing</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Growth Rate</div>
+                                <div class="detail-value">+29.2%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Rank</div>
+                                <div class="detail-value">#8</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Leader</div>
+                                <div class="detail-value">Athletic</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- South America -->
+            <div class="continent-content" id="south-america">
+                <div class="continent-overview">
+                    <h3>South America</h3>
+                    <p>A region where ancient indigenous traditions uniquely merge with rapidly growing modern industries. Brazil records a $49.3 billion market with 565% craft growth (2015-2020). The 1,000-year-old Wari Empire brewery discovered at Peru's Cerro Baúl site provides archaeological evidence of advanced malting techniques, sugar extraction, and controlled fermentation rather than saliva mastication. Modern developments include cassava integration (Ambev's "Roots" program), açaí stouts, guarana-infused beers, and traditional Andean grains like quinoa and kañiwa. Colombia utilizes local coffee and tropical fruits, while Chile employs regional berries and apples to create distinctive South American flavor profiles.</p>
+                    <div class="continent-stats">
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Brazil Market</div>
+                            <div class="continent-stat-value">$49.3B</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Craft Growth</div>
+                            <div class="continent-stat-value">+565%</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Archaeological Evidence</div>
+                            <div class="continent-stat-value">1,000 years</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">CAGR Forecast</div>
+                            <div class="continent-stat-value">+4.12%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="beer-styles-grid">
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">🌽</div>
+                            <div class="style-name">
+                                <h4>Chicha de Jora</h4>
+                                <span class="origin">Peru • Traditional Brew</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">3.0-6.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Technology</div>
+                                <div class="detail-value">Malting</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Site</div>
+                                <div class="detail-value">Cerro Baúl</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon dark">🍇</div>
+                            <div class="style-name">
+                                <h4>Brazilian Açaí Stout</h4>
+                                <span class="origin">Brazil • Açaí</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">6.0-8.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Antioxidants</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Region</div>
+                                <div class="detail-value">Amazon</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon wheat">☕</div>
+                            <div class="style-name">
+                                <h4>Colombian Coffee Beer</h4>
+                                <span class="origin">Colombia • Coffee</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">5.5-7.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Arabica Beans</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Style</div>
+                                <div class="detail-value">Porter</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Africa -->
+            <div class="continent-content" id="africa">
+                <div class="continent-overview">
+                    <h3>Africa</h3>
+                    <p>Where the continent's oldest fermentation traditions coexist with the world's fastest-growing commercial beer market (6.7% annually). South Africa leads production with 37 million hectoliters, maintaining Umqombothi traditions central to Xhosa culture while supporting global operations through former SABMiller (now AB InBev) networks. Sorghum beer production is known as "the traditional beer of Africa," called regionally as chibuku, pito, dolo, burukutu, and various local names, employing sophisticated 7-12 day processes (malting, lactic fermentation, natural yeast cultivation) to produce nutritious beverages classified by FAO as "more food than drink." Ethiopian Tej honey wine uses 80% of the country's 45,300 tons annual honey production, bittered with gesho (Rhamnus prinoides).</p>
+                    <div class="continent-stats">
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Production</div>
+                            <div class="continent-stat-value">160.5M hL</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Growth Rate</div>
+                            <div class="continent-stat-value">+6.7%</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Nigeria Growth</div>
+                            <div class="continent-stat-value">+71.8%</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Angola Expansion</div>
+                            <div class="continent-stat-value">+35%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="beer-styles-grid">
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">🌾</div>
+                            <div class="style-name">
+                                <h4>Sorghum Beer</h4>
+                                <span class="origin">All Africa • Traditional</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">2.0-5.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Fermentation</div>
+                                <div class="detail-value">7-12 days</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Names</div>
+                                <div class="detail-value">Chibuku etc.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon golden">🍯</div>
+                            <div class="style-name">
+                                <h4>Ethiopian Tej</h4>
+                                <span class="origin">Ethiopia • Honey Wine</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">8.0-14%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Ingredient</div>
+                                <div class="detail-value">80% Honey</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Bitter</div>
+                                <div class="detail-value">Gesho</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon wheat">🌍</div>
+                            <div class="style-name">
+                                <h4>Umqombothi</h4>
+                                <span class="origin">South Africa • Xhosa</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">3.0-4.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Ingredient</div>
+                                <div class="detail-value">Corn</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Use</div>
+                                <div class="detail-value">Ceremonial</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Oceania -->
+            <div class="continent-content" id="oceania">
+                <div class="continent-overview">
+                    <h3>Oceania</h3>
+                    <p>Achieving world-leading hop breeding excellence and cultural integration. Australia produces revolutionary hop varieties including Galaxy (1,007 tons), Vic Secret, and Enigma that define modern global brewing while maintaining beer-barbecue cultural traditions and supporting 430+ independent breweries with 20.3% craft market share. New Zealand achieves remarkable craft beer density with 200 breweries serving 5 million people, producing world-renowned hop varieties like Nelson Sauvin, Riwaka, and Motueka. The distinctive "New Zealand Draught" style represents the nation's unique amber ale-lager hybrid, while craft breweries like Garage Project achieve international recognition holding 9/10 top-rated NZ beers globally. Pacific Island cultures maintain traditional kava (Piper methysticum) ceremonies alongside imported beer preferences, with archaeological evidence showing 3,000+ years of kava cultivation across Polynesia, Melanesia, and Micronesia for ceremonial and social functions.</p>
+                    <div class="continent-stats">
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Galaxy Production</div>
+                            <div class="continent-stat-value">1,007t</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">NZ Brewery Density</div>
+                            <div class="continent-stat-value">200/5M people</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">AU Craft Share</div>
+                            <div class="continent-stat-value">20.3%</div>
+                        </div>
+                        <div class="continent-stat">
+                            <div class="continent-stat-label">Kava History</div>
+                            <div class="continent-stat-value">3,000+ years</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="beer-styles-grid">
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon golden">🍃</div>
+                            <div class="style-name">
+                                <h4>Australian Galaxy IPA</h4>
+                                <span class="origin">Australia • Unique Hops</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">6.0-7.5%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Tropical</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Hops</div>
+                                <div class="detail-value">Galaxy</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon amber">🥝</div>
+                            <div class="style-name">
+                                <h4>New Zealand Sauvignon Blanc Ale</h4>
+                                <span class="origin">New Zealand • Wine Barrel</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">5.5-7.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Barrel Aged</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Origin</div>
+                                <div class="detail-value">Marlborough</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="style-card">
+                        <div class="style-header">
+                            <div class="style-icon wheat">🌊</div>
+                            <div class="style-name">
+                                <h4>Pacific Kava Beer</h4>
+                                <span class="origin">Fiji • Kava</span>
+                            </div>
+                        </div>
+                        <div class="style-details">
+                            <div class="detail-item">
+                                <div class="detail-label">ABV</div>
+                                <div class="detail-value">4.0-6.0%</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Feature</div>
+                                <div class="detail-value">Kava Root</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Effect</div>
+                                <div class="detail-value">Relaxation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Traditional Brewing Techniques -->
+        <div class="card animated" style="animation-delay: 0.35s">
+            <h2 class="section-title">🏺 Ancient to Modern: Preservation of Traditional Brewing Techniques</h2>
+            <div class="trends-grid">
+                <div class="trend-card">
+                    <h4>🌾 Chinese Qū Fermentation</h4>
+                    <p>Humanity's oldest controlled fermentation technology with 7,000 years of archaeological evidence. Mixed culture starters from amylolytic fermentation preceded European malting techniques by millennia. Advanced fungal cultivation technology enabling higher alcohol content achievement.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🌽 South American Chicha Advanced Technology</h4>
+                    <p>The 1,000-year-old Wari Empire brewery discovered at Peru's Cerro Baúl site used advanced malting techniques, sugar extraction, and controlled fermentation rather than saliva mastication. Utilizing 5-day traditional processes and temperature-controlled specialized earthenware fermentation vessels.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🌾 African Sorghum Technology</h4>
+                    <p>Utilizing indigenous yeast cultures through 7-12 day malting cycles. Back-slopping techniques and traditional burial temperature control produce FAO-classified "more food than drink" nutritious beverages. Utilization of drought-resistant African native grain.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🌲 Nordic Farmhouse Ales</h4>
+                    <p>Preservation techniques from Baltic and Scandinavian regions including Finnish UNESCO-protected Sahti, Estonian Koduõlu, and Lithuanian Kaimiškas. Utilizing antimicrobial properties through juniper branches, baker's yeast, and raw ales (no boiling).</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🍯 Ethiopian Tej Honey Wine</h4>
+                    <p>Traditional fermentation using 80% of domestic honey production of 45,300 tons. Natural hop substitute bittering with gesho (Rhamnus prinoides). Archaeological evidence-based fermentation practices continuing throughout Ethiopian highlands.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🏺 Indigenous Continuing Heritage</h4>
+                    <p>North American indigenous Tiswin and Tesgüino (1,800-year brewing heritage), Pacific Island 3,000-year Kava culture, Australian indigenous fermentation research (way-a-linah, mangaitch, kambuda) and other diverse traditional fermentation techniques continuing to the present.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2025 Trends -->
+        <div class="card animated" style="animation-delay: 0.3s">
+            <h2 class="section-title">📈 2025 Global Beer Trends</h2>
+            <div class="trends-grid">
+                <div class="trend-card">
+                    <h4>🌱 Sustainability Revolution</h4>
+                    <p>Achieved -8% water intensity, -11% energy efficiency, and -22% emissions during 2017-2022 period. Renewable energy adoption progressed across all major manufacturers, with circular packaging innovations like Carlsberg's plant-based bottles being realized.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🔬 Health-Conscious Revolution</h4>
+                    <p>Non-alcoholic market reaching $40 billion by 2033, with Athletic Brewing advancing to #8 among US craft breweries. CBD infusion, adaptogen integration, and superfood ingredient functional beers creating new opportunities.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🤖 Precision Fermentation Technology</h4>
+                    <p>Quality control innovations through machine learning dramatically improving brewing efficiency. Fusion of traditional techniques and modern science—Japan's precision quality control technology, China's traditional qū techniques, Belgium's wild yeast cultivation—reproducing region-specific flavor profiles.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🌾 Modern Application of Traditional Ingredients</h4>
+                    <p>Traditional ingredients from around the world being integrated into modern brewing: China's rice and qū techniques (7,000 years of history), African sorghum, South American quinoa and kañiwa, Andean grains. Climate adaptation advancing drought-resistant grain development.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🏺 Cultural Preservation and Innovation</h4>
+                    <p>Global advancement in documentation and revival of traditional brewing techniques: Finnish UNESCO Intangible Cultural Heritage Sahti, Ethiopian Tej traditions, Korean Makgeolli techniques, indigenous Tiswin. Creating new value through combinations with modern craft beer.</p>
+                </div>
+                <div class="trend-card">
+                    <h4>🌐 International Exchange</h4>
+                    <p>Progressing tourism integration including craft beer international trade expansion, brewery destination travel, and cultural beer experiences. Acceleration of global brewing knowledge exchange, including New Zealand Garage Project's international success and Africa's emerging craft scenes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>🍺 Global Beer Encyclopedia 2025 | Data Source: Global Beer Culture Encyclopedia - Comprehensive Continental Overview 2025</p>
+        <p>© 2025 Global Beer Encyclopedia. Comprehensive analysis based on archaeological evidence, cultural research, industry statistics, and traditional techniques. Recording the fusion of indigenous wisdom and modern innovation.</p>
+    </div>
+
+    <script>
+        // Continental tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.continent-tab');
+            const contents = document.querySelectorAll('.continent-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetContinent = this.getAttribute('data-continent');
+                    
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Remove active class from all content
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    // Add active class to corresponding content
+                    document.getElementById(targetContinent).classList.add('active');
+                });
+            });
+            
+            // Create charts
+            createCharts();
+        });
+        
+        function createCharts() {
+            // Continental production share chart
+            const continentCtx = document.getElementById('continentChart').getContext('2d');
+            new Chart(continentCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Asia-Pacific', 'Europe', 'North America', 'South America', 'Africa', 'Oceania'],
+                    datasets: [{
+                        data: [35.5, 27.4, 18.2, 8.9, 8.6, 1.4],
+                        backgroundColor: [
+                            '#d4a574',
+                            '#8b5a3c',
+                            '#f4e4d4',
+                            '#e8d4b8',
+                            '#c4935a',
+                            '#a67c52'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Major producer trends chart
+            const productionCtx = document.getElementById('productionChart').getContext('2d');
+            new Chart(productionCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [
+                        {
+                            label: 'China (1st)',
+                            data: [341, 350, 355, 360, 360],
+                            borderColor: '#d4a574',
+                            backgroundColor: 'rgba(212, 165, 116, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'USA (2nd • -4.8%)',
+                            data: [190, 185, 180, 185, 184.5],
+                            borderColor: '#8b5a3c',
+                            backgroundColor: 'rgba(139, 90, 60, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Brazil (3rd)',
+                            data: [140, 138, 142, 145, 148],
+                            borderColor: '#c4935a',
+                            backgroundColor: 'rgba(196, 147, 90, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Germany (6th • -1%)',
+                            data: [94, 88, 85, 84, 83.93],
+                            borderColor: '#a67c52',
+                            backgroundColor: 'rgba(166, 124, 82, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Mexico (4th • Export King)',
+                            data: [115, 118, 120, 122, 125],
+                            borderColor: '#e8d4b8',
+                            backgroundColor: 'rgba(232, 212, 184, 0.1)',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Russia (5th)',
+                            data: [75, 78, 80, 82, 85],
+                            borderColor: '#f4e4d4',
+                            backgroundColor: 'rgba(244, 228, 212, 0.1)',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Production (Billion L)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
