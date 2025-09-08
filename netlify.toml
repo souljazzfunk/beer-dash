@@ -8,6 +8,11 @@
   status = 200
 
 [[redirects]]
+  from = "/en"
+  to = "/beer-dash_en.html"
+  status = 200
+
+[[redirects]]
   from = "/ja"
   to = "/beer-dash.html"
   status = 200

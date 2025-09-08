@@ -1,6 +1,6 @@
 # 🍺 Global Beer Encyclopedia Dashboard
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/8f8a3020-9592-4921-aeb4-ae468a7c4595/deploy-status)](https://app.netlify.com/projects/beer-dash-encyclopedia) [![Live Site](https://img.shields.io/badge/🌐_Live_Site-beer--dash--encyclopedia.netlify.app-blue?style=for-the-badge)](https://beer-dash-encyclopedia.netlify.app)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8f8a3020-9592-4921-aeb4-ae468a7c4595/deploy-status)](https://app.netlify.com/projects/beer-dash) [![Live Site](https://img.shields.io/badge/🌐_Live_Site-beer--dash.netlify.app-blue?style=for-the-badge)](https://beer-dash.netlify.app)
 
 A comprehensive interactive dashboard showcasing beer culture and brewing traditions across all six continents, featuring authentic archaeological data and modern market statistics.
 
